@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { RedirectionComponent } from './redirection/redirection.component';
 import { HomeComponent } from './home/home.component';
 import { ContentResolver } from './ContentService/contentresolver.service';
+import { PasswordComponent } from './password/password.component';
 
 const routes: Routes = [
   {path : '', redirectTo : generateRandomRouteId(), pathMatch:'full'},
-  {path : ':id', component:HomeComponent, pathMatch:'full',resolve: { content: ContentResolver },}
+  {path : ':id', component:HomeComponent, pathMatch:'full',resolve: { content: ContentResolver },},
+  {path : 'login/:id',component : PasswordComponent,pathMatch : 'full'}
 ];
 
 @NgModule({

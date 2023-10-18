@@ -20,7 +20,9 @@ import {
 export class HomeComponent implements OnInit {
   routeId: string | null;
   text: string | null = null;
-  textref: any;
+  words: number = 0; // Initialize the word count
+  characters: number = 0; // Initialize the character count
+
   constructor(private route: ActivatedRoute) {
     this.routeId = this.route.snapshot.paramMap.get('id');
     this.text = this.route.snapshot.data['content']; // Resolved content
@@ -28,7 +30,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.routeId);
-
+    this.updateWordAndCharacterCount();
     if (this.routeId) {
       this.checkIfRouteIdExistsInRealtimeDatabase(this.routeId)
         .then((foundText) => {
@@ -52,6 +54,9 @@ export class HomeComponent implements OnInit {
       onChildChanged(docRef, (snapshot) => {
         // console.log('Child changed:', snapshot.val());
         this.text = snapshot.val() || null;
+
+        // Update word and character counts
+        this.updateWordAndCharacterCount();
       });
     } else {
       console.error('Route ID is null or undefined');
@@ -68,6 +73,7 @@ export class HomeComponent implements OnInit {
     const db = getDatabase();
     set(ref(db, routeId), {
       text: this.text || '', // Set text to the current value or an empty string
+      locked : false
     })
       .then(() => {
         console.log('Document created successfully');
@@ -100,6 +106,7 @@ export class HomeComponent implements OnInit {
   }
 
   uploadText() {
+    this.updateWordAndCharacterCount();
     // Upload Text to document with id 'routeId' inside the 'text' collection
     //routeId-> text-> text
     const routeID = this.route.snapshot.paramMap.get('id');
@@ -119,4 +126,46 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Tab key functionality
+  onTextareaKeydown(event: KeyboardEvent) {
+    // Check if the pressed key is Tab
+    if (event.key === 'Tab') {
+      // Prevent the default Tab behavior (e.g., moving focus to the next element)
+      event.preventDefault();
+
+      // Insert a tab character into the textarea
+      const textarea = event.target as HTMLTextAreaElement;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+
+      // Insert a tab character at the current cursor position
+      const newText =
+        textarea.value.substring(0, start) +
+        '\t' +
+        textarea.value.substring(end);
+      this.text = newText;
+
+      // Update the cursor position
+      textarea.selectionStart = textarea.selectionEnd = start + 1;
+
+      // Update word and character counts
+      this.updateWordAndCharacterCount();
+    }
+  }
+
+  updateWordAndCharacterCount() {
+    if (this.text) {
+      // Split the text into words (using spaces as word separators)
+      const words = this.text.split(/\s+/).filter((word) => word.trim() !== '');
+
+      // Update the word count
+      this.words = words.length;
+
+      // Update the character count
+      this.characters = this.text.length;
+    } else {
+      this.words = 0;
+      this.characters = 0;
+    }
+  }
 }

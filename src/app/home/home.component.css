@@ -1,0 +1,22 @@
+
+.div-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    /* overflow: hidden; Prevent scrolling */
+    margin: 0; /* Remove default margin */
+  
+    /* Add spacing around the form */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in total width and height */
+  }
+  
+  .full-screen-textarea {
+    width: 100%; /* 80% of the screen width */
+    height: 85vh; /* 80% of the screen height */
+    box-sizing: border-box; /* Include padding in total width and height */
+    padding: 10px; /* Adjust padding as needed */
+  }
+  
