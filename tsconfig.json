@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "types": ["node"],
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -13,7 +14,7 @@
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
-    "typeRoots": ["node_modules/@angular/material"],
+    "typeRoots": ["node_modules/@angular/material","node_modules/@types"],
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,

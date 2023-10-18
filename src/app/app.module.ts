@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ContentResolver } from './ContentService/contentresolver.service';
-
+// import {c}
 
 @NgModule({
   declarations: [
@@ -31,7 +31,16 @@ import { ContentResolver } from './ContentService/contentresolver.service';
     FormsModule,
     MatInputModule,
     MatButtonModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirebaseApp(() => initializeApp({
+      projectId: environment.FIREBASE_PROJECT_ID,
+      appId: environment.FIREBASE_APP_ID,
+      databaseURL: environment.FIREBASE_DATABASE_URL,
+      storageBucket: environment.FIREBASE_STORAGE_BUCKET,
+      apiKey: environment.FIREBASE_API_KEY,
+      authDomain: environment.FIREBASE_AUTH_DOMAIN,
+      messagingSenderId: environment.FIREBASE_MESSAGING_SENDER_ID,
+      measurementId: environment.FIREBASE_MEASUREMENT_ID
+    })),
     // provideAnalytics(() => getAnalytics()),
     provideDatabase(() => getDatabase()),
     BrowserAnimationsModule,
