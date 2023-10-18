@@ -1,0 +1,10 @@
+<!-- teaxt area using -->
+<form>
+    <mat-form-field >
+        <!-- Onchange of the text in text area upload it to realtime automatically -->
+        <textarea matInput placeholder="Enter your text here" [ngModelOptions]="{standalone: true}" [(ngModel)]="text" (ngModelChange)="uploadText()" ></textarea>
+    </mat-form-field>
+
+    <!-- submit button -->
+    
+</form>

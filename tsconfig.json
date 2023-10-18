@@ -13,6 +13,7 @@
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
+    "typeRoots": ["node_modules/@angular/material"],
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,

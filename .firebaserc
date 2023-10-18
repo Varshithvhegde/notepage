@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "notecode-f83f4": {
+      "hosting": {
+        "notecode": [
+          "notecode-f83f4"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "notecode-f83f4"
+  }
+}
