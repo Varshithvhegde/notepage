@@ -119,5 +119,4 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // setup a realtime listener for text from realtime database
 }
