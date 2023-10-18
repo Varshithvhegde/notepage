@@ -8,7 +8,6 @@ export class ContentResolver implements Resolve<string | null> {
 
   resolve(route: ActivatedRouteSnapshot) {
     const routeId = route.paramMap.get('id');
-
     if (routeId) {
       const db = getDatabase();
       const docRef = ref(db, routeId);

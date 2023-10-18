@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { query } from '@angular/fire/database';
 import { ActivatedRoute } from '@angular/router';
-import { getDatabase, ref, set, get, DataSnapshot } from 'firebase/database';
+import {
+  getDatabase,
+  ref,
+  set,
+  get,
+  DataSnapshot,
+  Database,
+  onChildChanged,
+  Query,
+} from 'firebase/database';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +20,7 @@ import { getDatabase, ref, set, get, DataSnapshot } from 'firebase/database';
 export class HomeComponent implements OnInit {
   routeId: string | null;
   text: string | null = null;
-
+  textref: any;
   constructor(private route: ActivatedRoute) {
     this.routeId = this.route.snapshot.paramMap.get('id');
     this.text = this.route.snapshot.data['content']; // Resolved content
@@ -33,6 +43,16 @@ export class HomeComponent implements OnInit {
         .catch((error) => {
           console.error('Error:', error);
         });
+
+      // Set up a real-time listener for changes in the database
+      const db = getDatabase();
+      const docRef = ref(db, this.routeId);
+
+      // Listen for changes in a specific child ('text' in this case)
+      onChildChanged(docRef, (snapshot) => {
+        // console.log('Child changed:', snapshot.val());
+        this.text = snapshot.val() || null;
+      });
     } else {
       console.error('Route ID is null or undefined');
     }
@@ -57,7 +77,9 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  async checkIfRouteIdExistsInRealtimeDatabase(routeId: string): Promise<string | null> {
+  async checkIfRouteIdExistsInRealtimeDatabase(
+    routeId: string
+  ): Promise<string | null> {
     const db = getDatabase();
     const docRef = ref(db, routeId);
 
@@ -96,4 +118,6 @@ export class HomeComponent implements OnInit {
       console.error('Route ID is null or undefined');
     }
   }
+
+  // setup a realtime listener for text from realtime database
 }
