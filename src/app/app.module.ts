@@ -25,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ContentResolver } from './ContentService/contentresolver.service';
 import { NavigationComponent } from './navigation/navigation.component';
 import { PasswordComponent } from './password/password.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 // import {c}
 
 @NgModule({
@@ -44,6 +45,7 @@ import { PasswordComponent } from './password/password.component';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
+    MatTooltipModule,
     provideFirebaseApp(() =>
       initializeApp({
         projectId: environment.FIREBASE_PROJECT_ID,
