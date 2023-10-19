@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { query } from '@angular/fire/database';
+import { query, update } from '@angular/fire/database';
 import { ActivatedRoute } from '@angular/router';
 import {
   getDatabase,
@@ -112,14 +112,12 @@ export class HomeComponent implements OnInit {
     const routeID = this.route.snapshot.paramMap.get('id');
     const db = getDatabase();
     if (routeID) {
-      set(ref(db, routeID), {
-        text: this.text,
-      })
+      update(ref(db, `${routeID}`), {text: this.text || ''})
         .then(() => {
-          console.log('Document created successfully');
+          console.log('Text updated successfully');
         })
         .catch((error) => {
-          console.error('Error creating document:', error);
+          console.error('Error updating text:', error);
         });
     } else {
       console.error('Route ID is null or undefined');

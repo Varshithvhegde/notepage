@@ -1,18 +1,18 @@
 <div class="div-form">
   <form style="width: 100%;height: 100%;">
-    <mat-form-field class="full-screen-textarea">
+    <mat-form-field class="full-screen-textarea-field">
       <textarea class="full-screen-textarea"
         matInput
         placeholder="Enter your text here"
         [ngModelOptions]="{ standalone: true }"
         [(ngModel)]="text"
-        rows="22"
+        rows="19"
         (ngModelChange)="uploadText()"
         (keydown)="onTextareaKeydown($event)"
         spellcheck="false"
       ></textarea>
     </mat-form-field>
-    <div>
+    <div class="div-count">
       Word Count: {{ words }} | Character Count: {{ characters }}
     </div>
   </form>

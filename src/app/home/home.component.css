@@ -15,8 +15,40 @@
   
   .full-screen-textarea {
     width: 100%; /* 80% of the screen width */
+    height: 80vh; /* 80% of the screen height */
+    box-sizing: border-box; /* Include padding in total width and height */
+    padding: 10px; /* Adjust padding as needed */
+    resize: none; /* Disable textarea resizing */
+  }
+
+  .full-screen-textarea-field{
+    width: 100%; /* 80% of the screen width */
     height: 85vh; /* 80% of the screen height */
     box-sizing: border-box; /* Include padding in total width and height */
     padding: 10px; /* Adjust padding as needed */
   }
   
+  .div-count{
+    /* make it right end of the screen */
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 20px;
+    margin-right: 30px;
+
+  }
+
+  /* Add a media query if the width less 290 px  */
+  @media screen and (max-width: 290px) {
+    .div-count {
+      font-size: 10px;
+    }
+  }
+
+  /* Media query for width less 290 px and height less than 570 px */
+  @media screen and (max-width: 290px) and (max-height: 570px) {
+    .div-count {
+      font-size: 8px;
+      margin-bottom: 10px;
+    }
+  }
