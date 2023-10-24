@@ -67,6 +67,14 @@
     margin-top: 10px;
   }
   
+  .made-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    
+  }
 
   /* Add a media query if the width less 290 px  */
   @media screen and (max-width: 290px) {

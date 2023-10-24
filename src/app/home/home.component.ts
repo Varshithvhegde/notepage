@@ -137,31 +137,36 @@ export class HomeComponent implements OnInit {
   }
 
   // Tab key functionality
-  onTextareaKeydown(event: KeyboardEvent) {
-    // Check if the pressed key is Tab
-    if (event.key === 'Tab') {
-      // Prevent the default Tab behavior (e.g., moving focus to the next element)
-      event.preventDefault();
+onTextareaKeydown(event: KeyboardEvent) {
+  // Check if the pressed key is Tab
+  if (event.key === 'Tab') {
+    // Prevent the default Tab behavior (e.g., moving focus to the next element)
+    event.preventDefault();
 
-      // Insert a tab character into the textarea
-      const textarea = event.target as HTMLTextAreaElement;
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
+    // Insert a tab character at the current cursor position
+    const textarea = event.target as HTMLTextAreaElement;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
 
-      // Insert a tab character at the current cursor position
-      const newText =
-        textarea.value.substring(0, start) +
-        '\t' +
-        textarea.value.substring(end);
-      this.text = newText;
+    // Get the text before and after the cursor position
+    const textBeforeCursor = textarea.value.substring(0, start);
+    const textAfterCursor = textarea.value.substring(end);
 
-      // Update the cursor position
-      textarea.selectionStart = textarea.selectionEnd = start + 1;
+    // Combine the text with a tab character at the cursor position
+    const newText = textBeforeCursor + '\t' + textAfterCursor;
 
-      // Update word and character counts
-      this.updateWordAndCharacterCount();
-    }
+    // Update the textarea value
+    textarea.value = newText;
+
+    // Update the cursor position
+    const newCursorPos = start + 1;
+    textarea.setSelectionRange(newCursorPos, newCursorPos);
+
+    // Update word and character counts
+    this.updateWordAndCharacterCount();
   }
+}
+
 
   updateWordAndCharacterCount() {
     if (this.text) {
