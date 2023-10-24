@@ -1,4 +1,5 @@
 <h1 align="center" style="font-size:50px;"><a href="https://notepage.vercel.app">NotePage</a></h1>  
+
 ![frame_generic_light](https://github.com/Varshithvhegde/notepage/assets/80502833/a94e6729-3305-4380-94ea-7f2ac01c81be)
 
 **NotePage** is a web application that allows you to easily share code, text, or any content using a unique link. You can create new note pages by simply visiting `https://notepage.vercel.app`.
