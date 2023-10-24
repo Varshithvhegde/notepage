@@ -14,6 +14,7 @@ import {
 } from 'firebase/database';
 import { query, update } from '@angular/fire/database';
 import { UnlockService } from '../UnlockService/unlock.service';
+import { NgToastService } from 'ng-angular-popup';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -30,7 +31,8 @@ export class NavigationComponent {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private passwordService: UnlockService
+    private passwordService: UnlockService,
+    private toast : NgToastService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -60,27 +62,30 @@ export class NavigationComponent {
   unlock(){
     // Get the route ID
     const routeID = this.routeId;
-
+    
     // Check if the route ID exists
     if (routeID) {
       // Create a reference to the Firebase Realtime Database
       const db = getDatabase();
-
+      
       // Define the data object to update the password
       const dataToUpdate = {
         password: '',
         locked : false
       };
-
+      
       // Update the password in the database
       update(ref(db, routeID), dataToUpdate)
-        .then(() => {
-          console.log('Password updated successfully');
+      .then(() => {
+        this.toast.success({detail : 'Page unlocked successfully'});
+        console.log('Password updated successfully');
         })
         .catch((error) => {
+          this.toast.error({detail : 'Error unlocking page'});
           console.error('Error updating password:', error);
         });
     } else {
+      this.toast.error({detail : 'Error unlocking page'});
       console.error('Route ID is null or undefined');
     }
   }
@@ -135,9 +140,11 @@ export class NavigationComponent {
       // Update the password in the database
       update(ref(db, routeID), dataToUpdate)
         .then(() => {
+          this.toast.success({detail : 'Password updated successfully'});
           console.log('Password updated successfully');
         })
         .catch((error) => {
+          this.toast.error({detail : 'Error updating password'});
           console.error('Error updating password:', error);
         });
     } else {

@@ -30,7 +30,7 @@ import { PasswordInputDialogComponent } from './password-input-dialog/password-i
 import {MatDialogModule} from '@angular/material/dialog';
 import { PasswordInputComponent } from './password-input/password-input.component';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-
+import { NgToastModule } from 'ng-angular-popup';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +43,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
   ],
   imports: [
     BrowserModule,
+    NgToastModule,
     AppRoutingModule,
     MatFormFieldModule,
     FormsModule,
