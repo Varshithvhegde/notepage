@@ -43,6 +43,7 @@ export class NavigationComponent {
     });
     this.passwordService.unlockRequest$.subscribe(() => {
       // make locked false and password empty
+      this.datalocked = false;
       this.locked = false;
       this.password = '';
       // add this to the database
@@ -115,6 +116,7 @@ export class NavigationComponent {
     });
   }
   updatePassword(newPassword: string) {
+    this.datalocked = true;
     console.log('Updating password to: ' + newPassword);
     // Get the route ID
     const routeID = this.routeId;

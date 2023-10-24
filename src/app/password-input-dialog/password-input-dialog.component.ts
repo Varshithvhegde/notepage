@@ -18,7 +18,6 @@ export class PasswordInputDialogComponent {
     this.locked = data.locked;
     this.password = data.password;
   }
-
   togglePasswordVisibility() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
     this.showPasswordIcon = this.showPasswordIcon === 'visibility' ? 'visibility_off' : 'visibility';

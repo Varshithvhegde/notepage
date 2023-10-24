@@ -29,6 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PasswordInputDialogComponent } from './password-input-dialog/password-input-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { PasswordInputComponent } from './password-input/password-input.component';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -63,8 +64,9 @@ import { PasswordInputComponent } from './password-input/password-input.componen
         measurementId: environment.FIREBASE_MEASUREMENT_ID,
       })
     ),
-    // provideAnalytics(() => getAnalytics()),
+    provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
+    provideAnalytics(() => getAnalytics()),
     BrowserAnimationsModule,
     // provideFunctions(() => getFunctions())
   ],
