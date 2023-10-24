@@ -24,15 +24,15 @@ export class NavigationComponent {
   routeId: string | null | undefined;
 
   @Input()
-  locked : boolean = false;
-  password : string = '';
-  datalocked : boolean = false;
+  locked: boolean = false;
+  password: string = '';
+  datalocked: boolean = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private passwordService: UnlockService,
-    private toast : NgToastService
+    private toast: NgToastService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -59,33 +59,33 @@ export class NavigationComponent {
     });
   }
 
-  unlock(){
+  unlock() {
     // Get the route ID
     const routeID = this.routeId;
-    
+
     // Check if the route ID exists
     if (routeID) {
       // Create a reference to the Firebase Realtime Database
       const db = getDatabase();
-      
+
       // Define the data object to update the password
       const dataToUpdate = {
         password: '',
-        locked : false
+        locked: false,
       };
-      
+
       // Update the password in the database
       update(ref(db, routeID), dataToUpdate)
-      .then(() => {
-        this.toast.success({detail : 'Page unlocked successfully'});
-        console.log('Password updated successfully');
+        .then(() => {
+          this.toast.success({ detail: 'Page unlocked successfully' });
+          console.log('Password updated successfully');
         })
         .catch((error) => {
-          this.toast.error({detail : 'Error unlocking page'});
+          this.toast.error({ detail: 'Error unlocking page' });
           console.error('Error updating password:', error);
         });
     } else {
-      this.toast.error({detail : 'Error unlocking page'});
+      this.toast.error({ detail: 'Error unlocking page' });
       console.error('Route ID is null or undefined');
     }
   }
@@ -103,11 +103,10 @@ export class NavigationComponent {
   openPasswordInputDialog() {
     const dialogRef = this.dialog.open(PasswordInputDialogComponent, {
       width: '300px', // Set the desired width
-      data : {locked : this.datalocked, password : this.password}
+      data: { locked: this.datalocked, password: this.password },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-
       // if result == cancel then return
       if (result == 'cancel') {
         return;
@@ -134,17 +133,17 @@ export class NavigationComponent {
       // Define the data object to update the password
       const dataToUpdate = {
         password: newPassword,
-        locked : true
+        locked: true,
       };
 
       // Update the password in the database
       update(ref(db, routeID), dataToUpdate)
         .then(() => {
-          this.toast.success({detail : 'Password updated successfully'});
+          this.toast.success({ detail: 'Password updated successfully' });
           console.log('Password updated successfully');
         })
         .catch((error) => {
-          this.toast.error({detail : 'Error updating password'});
+          this.toast.error({ detail: 'Error updating password' });
           console.error('Error updating password:', error);
         });
     } else {
