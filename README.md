@@ -1,27 +1,78 @@
-# Notecode
+# NotePage
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.6.
+**NotePage** is a web application that allows you to easily share code, text, or any content using a unique link. You can create new note pages by simply visiting `https://notepage.vercel.app`.
 
-## Development server
+### Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Custom Pages**: Create your own custom pages to share content with others. Just use `https://notepage.vercel.app/<your-page-name>` and start sharing.
 
-## Code scaffolding
+- **Password Protection**: Optionally protect your pages with a password, ensuring that only authorized users can access your content.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Real-time Collaboration**: Collaborate with others in real-time. When multiple users access the same link, any changes made by one user are instantly visible to others, without requiring a page refresh.
 
-## Build
+- **Shareable Links**: Share your pages with others by sending them the unique link.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Tech Stack
 
-## Running unit tests
+NotePage is built using the following technologies:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Angular**: A powerful and popular front-end framework.
 
-## Running end-to-end tests
+- **Firebase**: A real-time cloud database, authentication, and hosting platform.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Angular Material**: A UI component library for Angular applications, providing a set of high-quality components.
 
-## Further help
+- **Nebular**: A customizable Angular UI library and Angular admin template based on Nebular.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### How to Use
+
+1. Visit [https://notepage.vercel.app](https://notepage.vercel.app) to start using NotePage.
+
+2. Create a custom page with your desired name (`https://notepage.vercel.app/<your-custom-name>`).
+
+3. Optionally set a password to protect your page.
+
+4. Start sharing your link with others.
+
+5. Collaborate in real-time with others on your shared content.
+
+### Installation
+
+To run this project locally, follow these steps:
+
+1. Clone the repository: `git clone <repository-url>`
+
+2. Navigate to the project folder: `cd notepage`
+
+3. Install dependencies: `npm install`
+
+4. Add Angular Material and Nebular to the project: `ng add @angular/material` and `ng add @nebular/theme`
+   
+5. Also ensure that you have added your Firebase configuration in `.env` file.
+```env
+FIREBASE_PROJECT_ID=<your-project-id>
+FIREBASE_APP_ID=<your-app-id>
+FIREBASE_DATABASE_URL=<your-database-url>
+FIREBASE_STORAGE_BUCKET=<your-storage-bucket>
+FIREBASE_API_KEY=<your-api-key>
+FIREBASE_AUTH_DOMAIN=<your-auth-domain>
+FIREBASE_MESSAGING_SENDER_ID=<your-messaging-sender-id>
+FIREBASE_MEASUREMENT_ID=<your-measurement-id>
+```
+
+1. Run the development server: `npm run start`
+
+2. Open your web browser and visit `http://localhost:4200`
+
+
+Now you can explore and test NotePage on your local machine.
+
+### Support and Contributions
+
+If you encounter any issues or have suggestions for improvements, please open an issue on the [GitHub repository](https://github.com/Varshithvhegde/notepage).
+
+You are also welcome to contribute to the project by forking the repository and creating a pull request.
+
+### License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
