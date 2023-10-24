@@ -37,6 +37,36 @@
     margin-right: 30px;
 
   }
+  .password-form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .password-field {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+  
+  .password-field input {
+    width: 100%;
+  }
+  
+  button {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
 
   /* Add a media query if the width less 290 px  */
   @media screen and (max-width: 290px) {

@@ -6,7 +6,7 @@ import { ContentResolver } from './ContentService/contentresolver.service';
 import { PasswordComponent } from './password/password.component';
 
 const routes: Routes = [
-  {path : '', redirectTo : generateRandomRouteId(), pathMatch:'full'},
+  {path : '', redirectTo : generateRandomRouteId(), pathMatch:'full', resolve: { content: ContentResolver },},
   {path : ':id', component:HomeComponent, pathMatch:'full',resolve: { content: ContentResolver },},
   {path : 'login/:id',component : PasswordComponent,pathMatch : 'full'}
 ];

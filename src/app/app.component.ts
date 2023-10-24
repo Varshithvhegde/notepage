@@ -22,6 +22,6 @@ export class AppComponent {
     });
   }
   ngOnInit(){
-    this.getData();
+    // this.getData();
   }
 }

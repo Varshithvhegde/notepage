@@ -26,7 +26,9 @@ import { ContentResolver } from './ContentService/contentresolver.service';
 import { NavigationComponent } from './navigation/navigation.component';
 import { PasswordComponent } from './password/password.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-// import {c}
+import { PasswordInputDialogComponent } from './password-input-dialog/password-input-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { PasswordInputComponent } from './password-input/password-input.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HomeComponent,
     NavigationComponent,
     PasswordComponent,
+    PasswordInputDialogComponent,
+    PasswordInputComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +50,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatToolbarModule,
     MatIconModule,
     MatTooltipModule,
+    MatDialogModule,
     provideFirebaseApp(() =>
       initializeApp({
         projectId: environment.FIREBASE_PROJECT_ID,

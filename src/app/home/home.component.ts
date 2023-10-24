@@ -11,6 +11,8 @@ import {
   onChildChanged,
   Query,
 } from 'firebase/database';
+import { PasswordInputComponent } from '../password-input/password-input.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -20,15 +22,22 @@ import {
 export class HomeComponent implements OnInit {
   routeId: string | null;
   text: string | null = null;
+  locked: boolean = false;
   words: number = 0; // Initialize the word count
   characters: number = 0; // Initialize the character count
+  password: string = '';
+  isPasswordIncorrect  : boolean = false;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private dialog: MatDialog) {
     this.routeId = this.route.snapshot.paramMap.get('id');
-    this.text = this.route.snapshot.data['content']; // Resolved content
+    this.locked = this.route.snapshot.data['content'].locked; // Resolved content
+    this.text = this.locked ? '' : this.route.snapshot.data['content'].text;
   }
 
   ngOnInit() {
+    // if (this.locked) {
+    //   this.openPasswordInputDialog();
+    // }
     console.log(this.routeId);
     this.updateWordAndCharacterCount();
     if (this.routeId) {
@@ -73,7 +82,7 @@ export class HomeComponent implements OnInit {
     const db = getDatabase();
     set(ref(db, routeId), {
       text: this.text || '', // Set text to the current value or an empty string
-      locked : false
+      locked: false,
     })
       .then(() => {
         console.log('Document created successfully');
@@ -93,7 +102,7 @@ export class HomeComponent implements OnInit {
       const snapshot: DataSnapshot = await get(docRef);
       if (snapshot.exists()) {
         const text = snapshot.val().text || null;
-        console.log('Document found with text:', text);
+        // console.log('Document found with text:', text);
         return text;
       } else {
         console.log('No such document!');
@@ -112,7 +121,7 @@ export class HomeComponent implements OnInit {
     const routeID = this.route.snapshot.paramMap.get('id');
     const db = getDatabase();
     if (routeID) {
-      update(ref(db, `${routeID}`), {text: this.text || ''})
+      update(ref(db, `${routeID}`), { text: this.text || '' })
         .then(() => {
           console.log('Text updated successfully');
         })
@@ -164,6 +173,42 @@ export class HomeComponent implements OnInit {
     } else {
       this.words = 0;
       this.characters = 0;
+    }
+  }
+
+  openPasswordInputDialog() {
+    const dialogRef = this.dialog.open(PasswordInputComponent, {
+      width: '300px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Check the password against the one from ContentResolver
+        if (result === this.route.snapshot.data['content'].password) {
+          // Password matched, set the text
+          this.text = this.route.snapshot.data['content'].text;
+          this.locked = false;
+          console.log('Password matched');
+        } else {
+          // Password did not match, display an error or handle as needed
+          console.error('Password does not match');
+        }
+      } else {
+        // Handle cancel action
+        console.log('Password input dialog canceled');
+      }
+    });
+  }
+  checkPassword() {
+    const passwordFromResolver = this.route.snapshot.data['content'].password;
+    if (this.password === passwordFromResolver) {
+      // Password matched, set the text
+      this.text = this.route.snapshot.data['content'].text;
+      this.locked = false;
+    } else {
+      // Password did not match, display an error or handle as needed
+      this.isPasswordIncorrect = true;
+      console.error('Password does not match');
     }
   }
 }
