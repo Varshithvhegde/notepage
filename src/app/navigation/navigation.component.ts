@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PasswordInputDialogComponent } from '../password-input-dialog/password-input-dialog.component';
@@ -13,6 +13,7 @@ import {
   Query,
 } from 'firebase/database';
 import { query, update } from '@angular/fire/database';
+import { UnlockService } from '../UnlockService/unlock.service';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -20,17 +21,32 @@ import { query, update } from '@angular/fire/database';
 })
 export class NavigationComponent {
   routeId: string | null | undefined;
+
+  @Input()
+  locked : boolean = false;
+  password : string = '';
+  datalocked : boolean = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private passwordService: UnlockService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Subscribe to route parameter changes and update routeId
         this.routeId = this.route.snapshot.paramMap.get('id');
+        this.datalocked = this.route.snapshot.data['content'].locked; // Resolved content
+        this.password = this.route.snapshot.data['content'].password; // Resolved content
         console.log('Route ID: ' + this.routeId);
       }
+    });
+    this.passwordService.unlockRequest$.subscribe(() => {
+      // make locked false and password empty
+      this.locked = false;
+      this.password = '';
+      // add this to the database
+      this.unlock();
     });
   }
   ngOnInit() {
@@ -40,6 +56,33 @@ export class NavigationComponent {
     });
   }
 
+  unlock(){
+    // Get the route ID
+    const routeID = this.routeId;
+
+    // Check if the route ID exists
+    if (routeID) {
+      // Create a reference to the Firebase Realtime Database
+      const db = getDatabase();
+
+      // Define the data object to update the password
+      const dataToUpdate = {
+        password: '',
+        locked : false
+      };
+
+      // Update the password in the database
+      update(ref(db, routeID), dataToUpdate)
+        .then(() => {
+          console.log('Password updated successfully');
+        })
+        .catch((error) => {
+          console.error('Error updating password:', error);
+        });
+    } else {
+      console.error('Route ID is null or undefined');
+    }
+  }
   sharePage() {
     // OPen share menu of the browser when the share button is clicked
     navigator
@@ -54,6 +97,7 @@ export class NavigationComponent {
   openPasswordInputDialog() {
     const dialogRef = this.dialog.open(PasswordInputDialogComponent, {
       width: '300px', // Set the desired width
+      data : {locked : this.datalocked, password : this.password}
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -66,6 +110,7 @@ export class NavigationComponent {
       if (result) {
         // Store the password to realtime db i mean update it
         this.updatePassword(result);
+        this.password = result;
       }
     });
   }

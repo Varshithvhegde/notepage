@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   words: number = 0; // Initialize the word count
   characters: number = 0; // Initialize the character count
   password: string = '';
-  isPasswordIncorrect  : boolean = false;
+  isPasswordIncorrect: boolean = false;
 
   constructor(private route: ActivatedRoute, private dialog: MatDialog) {
     this.routeId = this.route.snapshot.paramMap.get('id');
@@ -62,10 +62,13 @@ export class HomeComponent implements OnInit {
       // Listen for changes in a specific child ('text' in this case)
       onChildChanged(docRef, (snapshot) => {
         // console.log('Child changed:', snapshot.val());
-        this.text = snapshot.val() || null;
+        if (snapshot.key === 'text') {
+          this.text = snapshot.val() || null;
 
-        // Update word and character counts
-        this.updateWordAndCharacterCount();
+          // Update word and character counts
+          this.updateWordAndCharacterCount();
+        }
+        
       });
     } else {
       console.error('Route ID is null or undefined');
