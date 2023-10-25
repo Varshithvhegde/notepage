@@ -71,9 +71,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -10px;
   }
   
   .made-div {
+    /* margin-bottom: 10px; */
+
     text-align: center; /* Optional: To center the text within the div */
   }
   
