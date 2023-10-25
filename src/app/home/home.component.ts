@@ -68,7 +68,6 @@ export class HomeComponent implements OnInit {
           // Update word and character counts
           this.updateWordAndCharacterCount();
         }
-        
       });
     } else {
       console.error('Route ID is null or undefined');
@@ -137,36 +136,35 @@ export class HomeComponent implements OnInit {
   }
 
   // Tab key functionality
-onTextareaKeydown(event: KeyboardEvent) {
-  // Check if the pressed key is Tab
-  if (event.key === 'Tab') {
-    // Prevent the default Tab behavior (e.g., moving focus to the next element)
-    event.preventDefault();
+  onTextareaKeydown(event: KeyboardEvent) {
+    // Check if the pressed key is Tab
+    if (event.key === 'Tab') {
+      // Prevent the default Tab behavior (e.g., moving focus to the next element)
+      event.preventDefault();
 
-    // Insert a tab character at the current cursor position
-    const textarea = event.target as HTMLTextAreaElement;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
+      // Insert a tab character at the current cursor position
+      const textarea = event.target as HTMLTextAreaElement;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
 
-    // Get the text before and after the cursor position
-    const textBeforeCursor = textarea.value.substring(0, start);
-    const textAfterCursor = textarea.value.substring(end);
+      // Get the text before and after the cursor position
+      const textBeforeCursor = textarea.value.substring(0, start);
+      const textAfterCursor = textarea.value.substring(end);
 
-    // Combine the text with a tab character at the cursor position
-    const newText = textBeforeCursor + '\t' + textAfterCursor;
+      // Combine the text with a tab character at the cursor position
+      const newText = textBeforeCursor + '\t' + textAfterCursor;
 
-    // Update the textarea value
-    textarea.value = newText;
+      // Update the textarea value
+      textarea.value = newText;
 
-    // Update the cursor position
-    const newCursorPos = start + 1;
-    textarea.setSelectionRange(newCursorPos, newCursorPos);
+      // Update the cursor position
+      const newCursorPos = start + 1;
+      textarea.setSelectionRange(newCursorPos, newCursorPos);
 
-    // Update word and character counts
-    this.updateWordAndCharacterCount();
+      // Update word and character counts
+      this.updateWordAndCharacterCount();
+    }
   }
-}
-
 
   updateWordAndCharacterCount() {
     if (this.text) {

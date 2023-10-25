@@ -67,14 +67,16 @@
     margin-top: 10px;
   }
   
-  .made-div{
+  .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 100%;
-    
   }
+  
+  .made-div {
+    text-align: center; /* Optional: To center the text within the div */
+  }
+  
 
   /* Add a media query if the width less 290 px  */
   @media screen and (max-width: 290px) {
